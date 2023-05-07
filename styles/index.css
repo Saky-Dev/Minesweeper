@@ -4,10 +4,10 @@
   /* --- Colors --- */
   /* dark theme */
   --clr-dark-background: #1B1F3B;
-  --clr-dark-contrast: #FFFFFF;
+  --clr-dark-contrast: #E9E6FF;
   --clr-dark-main: #454ADE;
   /* light theme */
-  --clr-light-background: #FFFFFF;
+  --clr-light-background: #e8f6ff;
   --clr-light-contrast: #22577A;
   --clr-light-main: #38A3A5;
 
@@ -78,4 +78,13 @@ body[theme="light"] header h2 {
 }
 body[theme="dark"] header h2 {
   color: var(--clr-dark-main);
+}
+
+body[theme="light"] footer ul li a img,
+body[theme="light"] div.selector button.slr-options-visibility img {
+  filter: invert(52%) sepia(43%) saturate(561%) hue-rotate(132deg) brightness(97%) contrast(92%);
+}
+body[theme="dark"] footer ul li a img,
+body[theme="dark"] div.selector button.slr-options-visibility img {
+  filter: invert(85%) sepia(88%) saturate(3237%) hue-rotate(181deg) brightness(105%) contrast(101%);
 }
