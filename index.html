@@ -6,7 +6,40 @@
   <title>Minesweeper</title>
   <link rel="stylesheet" href="/styles/index.css">
 </head>
-<body>
+<body theme="light">
+  <header>
+    <h1>Minesweeper</h1>
+    <h2>Play now!</h2>
+  </header>
+  <main>
+    <section class="actions">
+      <div>
+        <div class="selector">
+          <div class="slr-head">
+            <span class="slr-selected" key="0">Choose an option</span>
+            <button class="slr-options-visibility"><img src="" alt=""></button>
+          </div>
+          <ul class="slr-options">
+            <li key="10">Easy (10 Mines)</li>
+            <li key="50">Normal (50 Mines)</li>
+            <li key="100">Hard (100 Mines)</li>
+            <li key="200">Extreme (200 Mines)</li>
+          </ul>
+        </div>
+        <button id="play">Start</button>
+      </div>
+      <div>
+        <span id="flags"></span>
+        <span id="time"></span>
+      </div>
+    </section>
+    <section class="game">
+      <div class="board"></div>
+    </section>
+  </main>
+  <footer>
+
+  </footer>
   <script src="/scripts/index.js"></script>
 </body>
 </html>

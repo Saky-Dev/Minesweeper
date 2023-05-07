@@ -1,2 +1,81 @@
-@import url('/styles/general.css');
-@import url('/styles/variables.css');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300;400;500&family=Nova+Mono&display=swap');
+
+:root {
+  /* --- Colors --- */
+  /* dark theme */
+  --clr-dark-background: #1B1F3B;
+  --clr-dark-contrast: #FFFFFF;
+  --clr-dark-main: #454ADE;
+  /* light theme */
+  --clr-light-background: #FFFFFF;
+  --clr-light-contrast: #22577A;
+  --clr-light-main: #38A3A5;
+
+  --clr-grey: #5e5b69;
+
+  /* --- Font zize --- */
+  --fns-title: 2.4em;
+  --fns-subtitle: 1.6em;
+  --fns-text: 1.1em;
+  --fns-box: 0.9em;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+h1, h2, span, li, button {
+  font-family: 'Fira Sans', sans-serif;
+}
+span#time {
+   font-family: 'Nova Mono', monospace;
+}
+
+body {
+  width: clamp(100vw, 100%, 100vw);
+  height: clamp(100vh, 100vh, 200vh);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+}
+body[theme="light"] {
+  background-color: var(--clr-light-background);
+}
+body[theme="dark"] {
+  background-color: var(--clr-dark-background);
+}
+
+body header {
+  width: 100%;
+  height: clamp(100px, 6vh, 130px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 10px 0;
+}
+body header h1 {
+  font-size: var(--fns-title);
+  font-weight: 500;
+}
+body[theme="light"] header h1 {
+  color: var(--clr-light-contrast);
+}
+body[theme="dark"] header h1 {
+  color: var(--clr-dark-contrast);
+}
+
+body header h2 {
+  font-size: var(--fns-subtitle);
+  font-weight: 400;
+}
+
+body[theme="light"] header h2 {
+  color: var(--clr-light-main);
+}
+body[theme="dark"] header h2 {
+  color: var(--clr-dark-main);
+}
