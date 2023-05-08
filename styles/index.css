@@ -173,20 +173,25 @@ body main section.actions div.left div.selector div.slr-head button.slr-options-
   height: 100%;
   aspect-ratio: 1/1;
   border-radius: 50%;
-  outline: 4px solid transparent;
+  outline: 2px solid transparent;
   cursor: pointer;
   outline-offset: -2px;
 }
 body main section.actions div.left div.selector div.slr-head button.slr-options-visibility:hover,
 body main section.actions div.left div.selector div.slr-head button.slr-options-visibility:focus {
-  outline: 4px solid var(--clr-light-main);
+  outline: 2px solid var(--clr-light-main);
 }
 body.dark main section.actions div.left div.selector div.slr-head button.slr-options-visibility:hover,
 body.dark main section.actions div.left div.selector div.slr-head button.slr-options-visibility:focus {
-  outline: 4px solid var(--clr-dark-contrast);
+  outline: 2px solid var(--clr-dark-contrast);
 }
 body main section.actions div.left div.selector div.slr-head button.slr-options-visibility img {
   width: 100%;
+  transform: rotate(0);
+}
+body main section.actions div.left div.selector.visible div.slr-head button.slr-options-visibility img {
+  width: 100%;
+  transform: rotate(180deg);
 }
 body main section.actions div.left div.selector ul.slr-options {
   width: 100%;
@@ -195,17 +200,46 @@ body main section.actions div.left div.selector ul.slr-options {
   align-items: flex-start;
   justify-content: flex-start;
   flex-direction: column;
+  list-style: none;
   position: absolute;
-  top: 110%;
   left: 0;
-}
-body main section.actions div.left div.selector[status="hidden"] ul.slr-options {
   opacity: 0;
   visibility: hidden;
+  top: 100%;
+  border-radius: 3px;
+  background: var(--clr-light-main);
 }
-body main section.actions div.left div.selector[status="hidden"] ul.slr-options {
-  opacity: 0;
-  visibility: hidden;
+body main section.actions div.left div.selector.visible ul.slr-options {
+  opacity: 1;
+  visibility: visible;
+  top: 120%;
+}
+body main section.actions div.left div.selector ul.slr-options li {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  height: fit-content;
+}
+body main section.actions div.left div.selector ul.slr-options li button {
+  width: 100%;
+  padding: 10px 5px;
+  font-size: var(--fns-box);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background: none;
+  border: none;
+  color: var(--clr-light-background);
+}
+body main section.actions div.left div.selector ul.slr-options li:first-child button {
+  border-radius: 3px 3px 0 0;
+}
+body main section.actions div.left div.selector ul.slr-options li:last-child button {
+  border-radius: 0 0 3px 3px;
+}
+body main section.actions div.left div.selector ul.slr-options li button:is(:hover, :focus) {
+  background: var(--clr-light-contrast);
 }
 
 /* --- Footer --- */
