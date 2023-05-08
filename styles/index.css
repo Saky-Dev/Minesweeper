@@ -45,11 +45,9 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 30px;
-}
-body[theme='light'] {
   background-color: var(--clr-light-background);
 }
-body[theme='dark'] {
+body.dark {
   background-color: var(--clr-dark-background);
 }
 
@@ -67,23 +65,18 @@ body header {
 body header h1 {
   font-size: var(--fns-title);
   font-weight: 500;
-}
-body[theme='light'] header h1 {
   color: var(--clr-light-contrast);
 }
-body[theme='dark'] header h1 {
+body.dark header h1 {
   color: var(--clr-dark-contrast);
 }
 
 body header h2 {
   font-size: var(--fns-subtitle);
   font-weight: 400;
-}
-
-body[theme='light'] header h2 {
   color: var(--clr-light-main);
 }
-body[theme='dark'] header h2 {
+body.dark header h2 {
   color: var(--clr-dark-main);
 }
 
@@ -114,14 +107,19 @@ body main section.actions div.left button.switch {
   border-radius: 30px;
   position: relative;
   outline: 0px solid #000;
+  cursor: pointer;
+  background: var(--clr-light-main);
 }
-body[theme='light'] main section.actions div.left button.switch:hover,
-body[theme='light'] main section.actions div.left button.switch:focus {
+body.dark main section.actions div.left button.switch {
+  background: var(--clr-dark-main);
+}
+body main section.actions div.left button.switch:hover,
+body main section.actions div.left button.switch:focus {
   outline: none;
   background: color-mix(in srgb, var(--clr-light-main), var(--clr-light-contrast));
 }
-body[theme='dark'] main section.actions div.left button.switch:hover,
-body[theme='dark'] main section.actions div.left button.switch:focus {
+body.dark main section.actions div.left button.switch:hover,
+body.dark main section.actions div.left button.switch:focus {
   outline: none;
   background: color-mix(in srgb, var(--clr-dark-main), var(--clr-dark-contrast) 20%);
 }
@@ -132,18 +130,10 @@ body main section.actions div.left button.switch::after {
   position: absolute;
   top: 6px;
   border-radius: 50%;
-}
-body[theme='light'] main section.actions div.left button.switch {
-  background: var(--clr-light-main);
-}
-body[theme='light'] main section.actions div.left button.switch::after {
   left: 6px;
   background: var(--clr-light-background);
 }
-body[theme='dark'] main section.actions div.left button.switch {
-  background: var(--clr-dark-main);
-}
-body[theme='dark'] main section.actions div.left button.switch::after {
+body.dark main section.actions div.left button.switch::after {
   left: calc(100% - 34px);
   background: var(--clr-dark-contrast);
 }
@@ -161,21 +151,17 @@ body main section.actions div.left div.selector div.slr-head {
   justify-content: space-between;
   padding: 2px 0;
   background: none;
-}
-body[theme="light"] main section.actions div.left div.selector div.slr-head {
   border-bottom: 4px solid var(--clr-light-main);
 }
-body[theme="dark"] main section.actions div.left div.selector div.slr-head {
+body.dark main section.actions div.left div.selector div.slr-head {
   border-bottom: 4px solid var(--clr-dark-main);
 }
 body main section.actions div.left div.selector div.slr-head span.slr-selected {
   font-size: var(--fns-text);
   font-weight: 400;
-}
-body[theme="light"] main section.actions div.left div.selector div.slr-head span.slr-selected {
   color: var(--clr-light-contrast);
 }
-body[theme="dark"] main section.actions div.left div.selector div.slr-head span.slr-selected {
+body.dark main section.actions div.left div.selector div.slr-head span.slr-selected {
   color: var(--clr-dark-contrast);
 }
 body main section.actions div.left div.selector div.slr-head button.slr-options-visibility {
@@ -188,14 +174,15 @@ body main section.actions div.left div.selector div.slr-head button.slr-options-
   aspect-ratio: 1/1;
   border-radius: 50%;
   outline: 4px solid transparent;
+  cursor: pointer;
   outline-offset: -2px;
 }
-body[theme="light"] main section.actions div.left div.selector div.slr-head button.slr-options-visibility:hover,
-body[theme="light"] main section.actions div.left div.selector div.slr-head button.slr-options-visibility:focus {
+body main section.actions div.left div.selector div.slr-head button.slr-options-visibility:hover,
+body main section.actions div.left div.selector div.slr-head button.slr-options-visibility:focus {
   outline: 4px solid var(--clr-light-main);
 }
-body[theme="dark"] main section.actions div.left div.selector div.slr-head button.slr-options-visibility:hover,
-body[theme="dark"] main section.actions div.left div.selector div.slr-head button.slr-options-visibility:focus {
+body.dark main section.actions div.left div.selector div.slr-head button.slr-options-visibility:hover,
+body.dark main section.actions div.left div.selector div.slr-head button.slr-options-visibility:focus {
   outline: 4px solid var(--clr-dark-contrast);
 }
 body main section.actions div.left div.selector div.slr-head button.slr-options-visibility img {
@@ -223,11 +210,11 @@ body main section.actions div.left div.selector[status="hidden"] ul.slr-options 
 
 /* --- Footer --- */
 
-body[theme='light'] footer ul li a img,
-body[theme='light'] div.selector button.slr-options-visibility img {
+body footer ul li a img,
+body div.selector button.slr-options-visibility img {
   filter: invert(52%) sepia(43%) saturate(561%) hue-rotate(132deg) brightness(97%) contrast(92%);
 }
-body[theme='dark'] footer ul li a img,
-body[theme='dark'] div.selector button.slr-options-visibility img {
+body.dark footer ul li a img,
+body.dark div.selector button.slr-options-visibility img {
   filter: invert(85%) sepia(88%) saturate(3237%) hue-rotate(181deg) brightness(105%) contrast(101%);
 }
