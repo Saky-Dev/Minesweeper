@@ -1,4 +1,3 @@
-const handleButtonChangeTheme = () => document.body.classList.toggle(string_values.DARK_THEME)
 const handleButtonSlrOptionsVisibility = () => selector.classList.toggle(string_values.VISIBILITY_STATUS)
 const handleButtonSlrOptions = e => {
   const key = e.target.getAttribute('key')
@@ -9,7 +8,6 @@ const handleButtonSlrOptions = e => {
 }
 
 const string_values = {
-  DARK_THEME: 'dark',
   VISIBILITY_STATUS: 'visible',
   DIFFICULTY: {
     EASY: 'easy',
@@ -60,17 +58,10 @@ Object.freeze(game_prperties)
 const selector = document.querySelector('div.selector')
 const slr_options = document.querySelector('ul.slr-options')
 const text_difficulty_selected = document.querySelector('span#difficulty-selected')
-const button_change_theme = document.getElementById('change-theme')
 const button_slr_options_visibility = document.querySelector('button.slr-options-visibility')
-
-const prefered_color = window.matchMedia(`(prefers-color-scheme: ${string_values.DARK_THEME})`)
 
 let difficulty_selected = undefined
 
-if (prefered_color.matches)
-  document.body.classList.toggle(string_values.DARK_THEME)
-
-button_change_theme.addEventListener('click', handleButtonChangeTheme)
 button_slr_options_visibility.addEventListener('click', handleButtonSlrOptionsVisibility)
 
 Object.entries(game_prperties).forEach(([key, value]) => {
