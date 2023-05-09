@@ -1,74 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300;400;500&family=Nova+Mono&display=swap');
-
-:root {
-  /* --- Colors --- */
-  /* dark theme */
-  --clr-dark-background: #1B1F3B;
-  --clr-dark-contrast: #E9E6FF;
-  --clr-dark-main: #454ADE;
-  --clr-dark-main-rgb: 69, 74, 222;
-  /* light theme */
-  --clr-light-background: #e8f6ff;
-  --clr-light-contrast: #22577A;
-  --clr-light-main: #38A3A5;
-
-  --clr-grey: #5e5b69;
-
-  /* --- Font zize --- */
-  --fns-title: 2.4em;
-  --fns-subtitle: 1.6em;
-  --fns-text: 1.2em;
-  --fns-box: 0.9em;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-h1, h2, span, li, button {
-  font-family: 'Fira Sans', sans-serif;
-}
-span#time {
-   font-family: 'Nova Mono', monospace;
-}
-
-body {
-  width: clamp(100vw, 100%, 100vw);
-  height: clamp(100vh, 100vh, 200vh);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  gap: 30px;
-  background-color: var(--clr-light-background);
-}
-
-/* --- Header --- */
-
-body header {
-  width: 100%;
-  height: clamp(100px, 6vh, 130px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 15px 0;
-}
-body header h1 {
-  font-size: var(--fns-title);
-  font-weight: 500;
-  color: var(--clr-light-contrast);
-}
-
-body header h2 {
-  font-size: var(--fns-subtitle);
-  font-weight: 400;
-  color: var(--clr-light-main);
-}
-
-/* --- Main --- */
+@import url('/styles/general.css');
+@import url('/styles/variables.css');
+@import url('/styles/header.css');
+@import url('/styles/footer.css');
+@import url('/styles/selector.css');
 
 body main {
   width: 100%;
@@ -89,139 +23,12 @@ body main section.actions div.left {
   gap: 30px;
 }
 
-body main section.actions div.left div.selector {
-  position: relative;
-  width: clamp(230px, 14vw, 300px);
-  height: 40px;
-}
-body main section.actions div.left div.selector div.slr-head {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 2px 0;
-  background: none;
-  border-bottom: 4px solid var(--clr-light-main);
-}
-body main section.actions div.left div.selector div.slr-head span.slr-selected {
-  font-size: var(--fns-text);
-  font-weight: 400;
-  color: var(--clr-light-contrast);
-}
-body main section.actions div.left div.selector div.slr-head button.slr-options-visibility {
-  border: none;
-  background: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  aspect-ratio: 1/1;
-  border-radius: 50%;
-  outline: 2px solid transparent;
-  cursor: pointer;
-  outline-offset: -2px;
-  transition: 0.2s ease;
-}
-body main section.actions div.left div.selector div.slr-head button.slr-options-visibility:is(:hover, :focus) {
-  outline: 2px solid var(--clr-light-main);
-}
-body main section.actions div.left div.selector div.slr-head button.slr-options-visibility img {
-  width: 100%;
-  transform: rotate(0);
-  transition: 0.2s ease;
-}
-body main section.actions div.left div.selector.visible div.slr-head button.slr-options-visibility img {
-  width: 100%;
-  transform: rotate(180deg);
-}
-body main section.actions div.left div.selector ul.slr-options {
-  width: 100%;
-  height: fit-content;
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  flex-direction: column;
-  list-style: none;
-  position: absolute;
-  left: 0;
-  opacity: 0;
-  visibility: hidden;
-  top: 100%;
-  border-radius: 3px;
-  background: var(--clr-light-main);
-  transition: 0.2s ease;
-}
-body main section.actions div.left div.selector.visible ul.slr-options {
-  opacity: 1;
-  visibility: visible;
-  top: 120%;
-}
-body main section.actions div.left div.selector ul.slr-options li {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  width: 100%;
-  height: fit-content;
-}
-body main section.actions div.left div.selector ul.slr-options li button {
-  width: 100%;
-  padding: 10px 5px;
-  font-size: var(--fns-box);
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  background: none;
-  border: none;
-  color: var(--clr-light-background);
-  transition: 0.1s ease;
-}
-body main section.actions div.left div.selector ul.slr-options li:first-child button {
-  border-radius: 3px 3px 0 0;
-}
-body main section.actions div.left div.selector ul.slr-options li:last-child button {
-  border-radius: 0 0 3px 3px;
-}
-body main section.actions div.left div.selector ul.slr-options li button:is(:hover, :focus) {
-  outline: none;
-  background: var(--clr-light-contrast);
-}
-
-/* --- Footer --- */
-
 body footer ul li a img,
 body div.selector button.slr-options-visibility img {
   filter: invert(52%) sepia(43%) saturate(561%) hue-rotate(132deg) brightness(97%) contrast(92%);
 }
 
 @media (prefers-color-scheme: dark) {
-  body {
-    background-color: var(--clr-dark-background);
-  }
-  body header h1 {
-    color: var(--clr-dark-contrast);
-  }
-  body header h2 {
-    color: var(--clr-dark-main);
-  }
-  body main section.actions div.left div.selector div.slr-head {
-    border-bottom: 4px solid var(--clr-dark-main);
-  }
-  body main section.actions div.left div.selector div.slr-head span.slr-selected {
-    color: var(--clr-dark-contrast);
-  }
-  body main section.actions div.left div.selector div.slr-head button.slr-options-visibility:is(:hover, :focus) {
-    outline: 2px solid var(--clr-dark-contrast);
-  }
-  body main section.actions div.left div.selector ul.slr-options {
-    background: var(--clr-dark-main);
-  }
-  body main section.actions div.left div.selector ul.slr-options li button {
-    color: var(--clr-dark-contrast);
-  }
-  body main section.actions div.left div.selector ul.slr-options li button:is(:hover, :focus) {
-    background: color-mix(in srgb, var(--clr-dark-main), var(--clr-dark-background) 50%);
-  }
   body footer ul li a img,
   body div.selector button.slr-options-visibility img {
     filter: invert(85%) sepia(88%) saturate(3237%) hue-rotate(181deg) brightness(105%) contrast(101%);

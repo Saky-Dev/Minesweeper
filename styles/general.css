@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300;400;500&family=Nova+Mono&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+h1, h2, span, li, button {
+  font-family: 'Fira Sans', sans-serif;
+}
+span#time {
+   font-family: 'Nova Mono', monospace;
+}
+
+body {
+  width: clamp(100vw, 100%, 100vw);
+  height: clamp(100vh, 100vh, 200vh);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  background-color: var(--clr-light-background);
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: var(--clr-dark-background);
+  }
+}

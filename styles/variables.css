@@ -1,0 +1,19 @@
+:root {
+  /* --- Colors --- */
+  /* dark theme */
+  --clr-dark-background: #1B1F3B;
+  --clr-dark-contrast: #E9E6FF;
+  --clr-dark-main: #454ADE;
+  /* light theme */
+  --clr-light-background: #e8f6ff;
+  --clr-light-contrast: #22577A;
+  --clr-light-main: #38A3A5;
+
+  --clr-grey: #5e5b69;
+
+  /* --- Font zize --- */
+  --fns-title: 2.4em;
+  --fns-subtitle: 1.6em;
+  --fns-text: 1.2em;
+  --fns-box: 0.9em;
+}
