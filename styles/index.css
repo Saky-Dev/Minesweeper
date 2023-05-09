@@ -22,6 +22,23 @@ body main section.actions div.left {
   justify-content: center;
   gap: 30px;
 }
+body main section.actions div.left button#play {
+  height: 40px;
+  padding: 10px 30px;
+  width: auto;
+  background: var(--clr-light-main);
+  border: none;
+  border-radius: 30px;
+  color: var(--clr-light-background);
+  font-size: var(--fns-box);
+  font-weight: 500;
+  transition: 0.2s ease;
+  cursor: pointer;
+}
+body main section.actions div.left button#play:is(:hover, :focus) {
+  outline: none;
+  background: var(--clr-light-contrast);
+}
 
 body footer ul li a img,
 body div.selector button.slr-options-visibility img {
@@ -29,6 +46,13 @@ body div.selector button.slr-options-visibility img {
 }
 
 @media (prefers-color-scheme: dark) {
+  body main section.actions div.left button#play {
+    background: var(--clr-dark-main);
+    color: var(--clr-dark-contrast);
+  }
+  body main section.actions div.left button#play:is(:hover, :focus) {
+    background: color-mix(in srgb, var(--clr-dark-main), var(--clr-dark-background));
+  }
   body footer ul li a img,
   body div.selector button.slr-options-visibility img {
     filter: invert(85%) sepia(88%) saturate(3237%) hue-rotate(181deg) brightness(105%) contrast(101%);

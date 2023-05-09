@@ -84,6 +84,7 @@ div.selector ul.slr-options li button {
   border: none;
   color: var(--clr-light-background);
   transition: 0.1s ease;
+  cursor: pointer;
 }
 div.selector ul.slr-options li:first-child button {
   border-radius: 3px 3px 0 0;
@@ -113,6 +114,6 @@ div.selector ul.slr-options li button:is(:hover, :focus) {
     color: var(--clr-dark-contrast);
   }
   div.selector ul.slr-options li button:is(:hover, :focus) {
-    background: color-mix(in srgb, var(--clr-dark-main), var(--clr-dark-background) 50%);
+    background: color-mix(in srgb, var(--clr-dark-main), var(--clr-dark-background));
   }
 }
