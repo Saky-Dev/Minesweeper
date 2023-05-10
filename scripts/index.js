@@ -1,3 +1,17 @@
+const checkWin = () => {
+  const hidden = [...document.querySelectorAll('button.box.hidden')]
+  let key = ''
+
+  for (const box of hidden) {
+    key = box.getAttribute('key')
+
+    if (virtual_board[key] >= 0)
+      return false
+  }
+
+  return true
+}
+
 const endGame = final => {
   let time = 0
 
@@ -37,21 +51,13 @@ const openArea = () => {
     const isHidden = document.querySelector(`button.box[key="${key}"]`).classList.contains('hidden')
     const position = key.split('|').map(coordinate => Number(coordinate))
 
-    console.log(isHidden)
-
     if (isHidden) {
       if (virtual_board[key] === 0)
         area_queue.push(position)
 
       document.querySelector(`button.box[key="${key}"]`).classList.remove('hidden')
-      visible_box++
     }
   })
-
-  if (visible_box === cols * rows - mines) {
-    endGame('success')
-    return alert('you win')
-  }
 
   if (area_queue.length > 0)
     openArea()
@@ -71,16 +77,15 @@ const handleBox = e => {
 
   e.target.classList.remove('hidden')
   e.target.removeEventListener('click', handleBox)
-  visible_box++
-
-  if (visible_box === cols * rows - mines) {
-    endGame('success')
-    return alert('you win')
-  }
 
   if (virtual_board[key] === 0) {
     area_queue.push([y, x])
     openArea()
+  }
+
+  if (checkWin()) {
+    endGame('success')
+    return alert('You win')
   }
 }
 
@@ -100,7 +105,6 @@ const handleButtonPlay = () => {
 
   ;[...board.children].forEach(child => board.removeChild(child))
   virtual_board = {}
-  visible_box = 0
   
   for (let i = 0; i < rows * cols; i++) {
     const box = document.createElement('button')
@@ -225,7 +229,6 @@ const button_play = document.querySelector('button#play')
 
 let difficulty_selected = undefined
 let virtual_board = {}
-let visible_box = 0
 let area_queue = []
 
 button_slr_options_visibility.addEventListener('click', handleButtonSlrOptionsVisibility)
