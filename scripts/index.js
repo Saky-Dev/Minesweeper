@@ -1,3 +1,19 @@
+const initTimer = () => {
+  text_time.innerText = `0${game_time.minutes}:0${game_time.seconds}`
+  
+  timer = setInterval(() => {
+    game_time.minutes += game_time.seconds + 1 === 60 ? 1 : 0
+    game_time.seconds += game_time.seconds + 1 === 60 ? -game_time.seconds : 1
+
+    const min = `${game_time.minutes < 10 ? '0' : ''}${game_time.minutes}`
+    const sec = `${game_time.seconds < 10 ? '0' : ''}${game_time.seconds}`
+
+    text_time.innerText = `${min}:${sec}`
+  }, 1000)
+}
+
+const stopTimer = () => clearInterval(timer)
+
 const checkWin = () => {
   const hidden = [...document.querySelectorAll('button.box.hidden')]
   let key = ''
@@ -30,8 +46,6 @@ const endGame = final => {
 }
 
 const openArea = () => {
-  const {mines} = game_prperties[difficulty_selected]
-  const {cols, rows} = game_prperties[difficulty_selected].size
   const [y, x] = area_queue.shift()
   const area = [
     `${y - 1}|${x}`,
@@ -66,11 +80,9 @@ const openArea = () => {
 const handleBox = e => {
   const key = e.target.getAttribute('key')
   const [y, x] = key.split('|').map(coordinate => Number(coordinate))
-
-  const {mines} = game_prperties[difficulty_selected]
-  const {cols, rows} = game_prperties[difficulty_selected].size
   
   if (virtual_board[key] === -1) {
+    stopTimer()
     endGame('bomb')
     return alert('you lose')
   }
@@ -84,6 +96,7 @@ const handleBox = e => {
   }
 
   if (checkWin()) {
+    stopTimer()
     endGame('success')
     return alert('You win')
   }
@@ -91,11 +104,11 @@ const handleBox = e => {
 
 const handleButtonSlrOptionsVisibility = () => selector.classList.toggle(string_values.VISIBILITY_STATUS)
 const handleButtonPlay = () => {
-  if (!difficulty_selected)
+  if (!pre_difficulty_state)
     return alert('Must select a game difficult before to start')
   
-  const {mines} = game_prperties[difficulty_selected]
-  const {cols, rows} = game_prperties[difficulty_selected].size
+  const {mines} = game_prperties[pre_difficulty_state]
+  const {cols, rows} = game_prperties[pre_difficulty_state].size
   const mines_coodinates = new Set()
 
   let x = 0
@@ -104,7 +117,14 @@ const handleButtonPlay = () => {
   let posx = 0
 
   ;[...board.children].forEach(child => board.removeChild(child))
+
   virtual_board = {}
+  difficulty_selected = pre_difficulty_state
+
+  game_time.minutes = 0
+  game_time.seconds = 0
+
+  initTimer()
   
   for (let i = 0; i < rows * cols; i++) {
     const box = document.createElement('button')
@@ -167,7 +187,7 @@ const handleButtonPlay = () => {
 const handleButtonSlrOptions = e => {
   const key = e.target.getAttribute('key')
 
-  difficulty_selected = key
+  pre_difficulty_state = key
   text_difficulty_selected.innerText = game_prperties[key].text
   selector.classList.toggle(string_values.VISIBILITY_STATUS)
 }
@@ -223,13 +243,20 @@ Object.freeze(game_prperties)
 const selector = document.querySelector('div.selector')
 const slr_options = document.querySelector('ul.slr-options')
 const board = document.querySelector('div#board')
+const text_time = document.querySelector('span#time')
 const text_difficulty_selected = document.querySelector('span#difficulty-selected')
 const button_slr_options_visibility = document.querySelector('button.slr-options-visibility')
 const button_play = document.querySelector('button#play')
 
+let pre_difficulty_state = undefined
 let difficulty_selected = undefined
 let virtual_board = {}
 let area_queue = []
+let game_time = {
+  minutes: 0,
+  seconds: 0
+}
+let timer = undefined
 
 button_slr_options_visibility.addEventListener('click', handleButtonSlrOptionsVisibility)
 button_play.addEventListener('click', handleButtonPlay)

@@ -11,6 +11,7 @@ div#board button.box {
   position: relative;
   border-radius: 0;
   background: var(--clr-light-background);
+  color: var(--clr-light-contrast);
   border: none;
   font-size: var(--fns-box);
   transition: 0.65s ease;
@@ -32,14 +33,10 @@ div#board button.box.hidden::after {
   transform: scale(1);
 }
 div#board button.box.bomb::after,
-div#board button.box.success::after {
-  /*border-radius: 3px;*/
-  background: var(--clr-light-contrast);
-}
+div#board button.box.success::after,
 div#board button.box.hidden:hover::after {
   background: var(--clr-light-contrast);
 }
-
 div#board button.box::before {
   position: absolute;
   content: '';
@@ -63,4 +60,22 @@ div#board button.box.hidden.bomb::before {
 div#board button.box.hidden.success::before {
   background-image: url('/assets/icons/pennant-filled.svg');
   transform: scale(1);
+}
+
+@media (prefers-color-scheme: dark) {
+  div#board button.box {
+    background: var(--clr-dark-background);
+    color: var(--clr-dark-contrast);
+  }
+  div#board button.box::after {
+    background: var(--clr-dark-main);
+  }
+  div#board button.box.bomb::after,
+  div#board button.box.success::after,
+  div#board button.box.hidden:hover::after {
+    background: color-mix(in srgb, var(--clr-dark-main), var(--clr-dark-background));
+  }
+  div#board button.box::before {
+    filter: invert(95%) sepia(64%) saturate(7499%) hue-rotate(181deg) brightness(103%) contrast(106%);
+  }
 }
