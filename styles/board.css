@@ -9,10 +9,11 @@ div#board button.box {
   width: 30px;
   height: 30px;
   position: relative;
-  border: none;
+  border-radius: 0;
   background: var(--clr-light-background);
   border: none;
-  transition: 0.2s ease;
+  font-size: var(--fns-box);
+  transition: 0.65s ease;
 }
 div#board button.box::after {
   position: absolute;
@@ -23,11 +24,43 @@ div#board button.box::after {
   top: 0;
   left: 0;
   transform: scale(0);
-  transition: 0.65s ease;
+  transition: inherit;
+  transition-delay: inherit;
+  border-radius: inherit;
 }
 div#board button.box.hidden::after {
   transform: scale(1);
 }
+div#board button.box.bomb::after,
+div#board button.box.success::after {
+  /*border-radius: 3px;*/
+  background: var(--clr-light-contrast);
+}
 div#board button.box.hidden:hover::after {
   background: var(--clr-light-contrast);
+}
+
+div#board button.box::before {
+  position: absolute;
+  content: '';
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  transform: scale(0);
+  background-size: 50%;
+  background-position: center center;
+  background-repeat: no-repeat;
+  filter: invert(100%) sepia(31%) saturate(4492%) hue-rotate(177deg) brightness(104%) contrast(107%);
+  z-index: 2;
+  transition: inherit;
+  transition-delay: inherit;
+}
+div#board button.box.hidden.bomb::before {
+  background-image: url('/assets/icons/bomb.svg');
+  transform: scale(1);
+}
+div#board button.box.hidden.success::before {
+  background-image: url('/assets/icons/pennant-filled.svg');
+  transform: scale(1);
 }

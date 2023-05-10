@@ -14,7 +14,7 @@ span#time {
 }
 
 body {
-  width: clamp(100vw, 100%, 100vw);
+  width: 100%;
   height: clamp(100vh, 100vh, 200vh);
   display: flex;
   flex-direction: column;

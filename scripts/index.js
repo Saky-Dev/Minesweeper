@@ -1,5 +1,87 @@
+const endGame = final => {
+  let time = 0
+
+  document.querySelectorAll('button.box').forEach(box => box.removeEventListener('click', handleBox))
+
+  Object.entries(virtual_board)
+  .filter(([, value]) => value === -1)
+  .forEach(([key,]) => {
+    const box = document.querySelector(`button.box[key="${key}"]`)
+
+    box.classList.add(final)
+    box.style.transitionDelay = `${time}ms`
+
+    time += 10
+  })
+}
+
+const openArea = () => {
+  const {mines} = game_prperties[difficulty_selected]
+  const {cols, rows} = game_prperties[difficulty_selected].size
+  const [y, x] = area_queue.shift()
+  const area = [
+    `${y - 1}|${x}`,
+    `${y - 1}|${x - 1}`,
+    `${y - 1}|${x + 1}`,
+    `${y}|${x - 1}`,
+    `${y}|${x + 1}`,
+    `${y + 1}|${x}`,
+    `${y + 1}|${x - 1}`,
+    `${y + 1}|${x + 1}`
+  ]
+
+  area.forEach(key => {
+    if (virtual_board[key] === undefined)
+      return
+    
+    const isHidden = document.querySelector(`button.box[key="${key}"]`).classList.contains('hidden')
+    const position = key.split('|').map(coordinate => Number(coordinate))
+
+    console.log(isHidden)
+
+    if (isHidden) {
+      if (virtual_board[key] === 0)
+        area_queue.push(position)
+
+      document.querySelector(`button.box[key="${key}"]`).classList.remove('hidden')
+      visible_box++
+    }
+  })
+
+  if (visible_box === cols * rows - mines) {
+    endGame('success')
+    return alert('you win')
+  }
+
+  if (area_queue.length > 0)
+    openArea()
+}
+
 const handleBox = e => {
+  const key = e.target.getAttribute('key')
+  const [y, x] = key.split('|').map(coordinate => Number(coordinate))
+
+  const {mines} = game_prperties[difficulty_selected]
+  const {cols, rows} = game_prperties[difficulty_selected].size
+  
+  if (virtual_board[key] === -1) {
+    endGame('bomb')
+    return alert('you lose')
+  }
+
   e.target.classList.remove('hidden')
+  e.target.removeEventListener('click', handleBox)
+  visible_box++
+
+  if (visible_box === cols * rows - mines) {
+    endGame('success')
+    return alert('you win')
+  }
+
+  if (virtual_board[key] === 0) {
+    area_queue.push([y, x])
+    openArea()
+  }
 }
 
 const handleButtonSlrOptionsVisibility = () => selector.classList.toggle(string_values.VISIBILITY_STATUS)
@@ -15,6 +97,10 @@ const handleButtonPlay = () => {
   let y = 0
   let posy = 0
   let posx = 0
+
+  ;[...board.children].forEach(child => board.removeChild(child))
+  virtual_board = {}
+  visible_box = 0
   
   for (let i = 0; i < rows * cols; i++) {
     const box = document.createElement('button')
@@ -41,8 +127,8 @@ const handleButtonPlay = () => {
   board.style.gridTemplateRows = `repeat(${rows}, 1fr)`
 
   while (mines_coodinates.size < mines) {
-    posy = Math.floor(Math.random() * (rows - 1))
-    posx = Math.floor(Math.random() * (cols - 1))
+    posy = Math.round(Math.random() * (rows - 1))
+    posx = Math.round(Math.random() * (cols - 1))
 
     mines_coodinates.add(`${posy}|${posx}`)
   }
@@ -52,10 +138,7 @@ const handleButtonPlay = () => {
   Object.entries(virtual_board)
   .filter(([, value]) => value === 0)
   .forEach(([key, value]) => {
-    [y, x] = key.split('|')
-
-    y = Number(y)
-    x = Number(x)
+    [y, x] = key.split('|').map(coordinate => Number(coordinate))
 
     const area = [
       `${y - 1}|${x}`,
@@ -69,7 +152,7 @@ const handleButtonPlay = () => {
     ]
 
     area.forEach(coordinate => {
-      if (virtual_board[coordinate] && virtual_board[coordinate] === -1)
+      if (virtual_board[coordinate] !== undefined && virtual_board[coordinate] === -1)
         value++
     })
 
@@ -106,7 +189,7 @@ const game_prperties = {
   },
   [string_values.DIFFICULTY.NORMAL]: {
     text: 'Normal',
-    mines: 80,
+    mines: 40,
     size: {
       cols: 18,
       rows: 12
@@ -114,7 +197,7 @@ const game_prperties = {
   },
   [string_values.DIFFICULTY.HARD]: {
     text: 'Hard',
-    mines: 250,
+    mines: 150,
     size: {
       cols: 30,
       rows: 20
@@ -122,7 +205,7 @@ const game_prperties = {
   },
   [string_values.DIFFICULTY.EXTREME]: {
     text: 'Extreme',
-    mines: 500,
+    mines: 400,
     size: {
       cols: 50,
       rows: 25
@@ -142,6 +225,8 @@ const button_play = document.querySelector('button#play')
 
 let difficulty_selected = undefined
 let virtual_board = {}
+let visible_box = 0
+let area_queue = []
 
 button_slr_options_visibility.addEventListener('click', handleButtonSlrOptionsVisibility)
 button_play.addEventListener('click', handleButtonPlay)
