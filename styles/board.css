@@ -1,0 +1,33 @@
+div#board {
+  width: fit-content;
+  height: fit-content;
+  display: grid;
+  align-content: center;
+  border-radius: 5px;
+}
+div#board button.box {
+  width: 30px;
+  height: 30px;
+  position: relative;
+  border: none;
+  background: var(--clr-light-background);
+  border: none;
+  transition: 0.2s ease;
+}
+div#board button.box::after {
+  position: absolute;
+  content: '';
+  width: 100%;
+  height: 100%;
+  background: var(--clr-light-main);
+  top: 0;
+  left: 0;
+  transform: scale(0);
+  transition: 0.65s ease;
+}
+div#board button.box.hidden::after {
+  transform: scale(1);
+}
+div#board button.box.hidden:hover::after {
+  background: var(--clr-light-contrast);
+}
