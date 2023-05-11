@@ -1,3 +1,35 @@
+const initFinishAnimation = () => {
+  
+  finish_animation_timer = setInterval(() => {
+    let time = 0
+
+    ;[...document.querySelectorAll('button.box')].forEach(box => {
+      box.className = 'box hidden'
+      box.style.transitionDelay = '0s'
+    })
+
+    setTimeout(() => {
+      history.forEach(key => {
+        const box = document.querySelector(`button.box[key="${key}"]`)
+  
+        box.classList.remove('hidden')
+        box.style.transitionDelay = `${time}ms`
+        time += 20
+      })
+
+      Object.entries(virtual_board)
+      .filter(([, value]) => value === -1)
+      .forEach(([key,]) => {
+        const box = document.querySelector(`button.box[key="${key}"]`)
+
+        box.classList.add(string_values.WON)
+        box.style.transitionDelay = `${time}ms`
+      })
+    }, 1500)
+
+  }, history.length * 20 + 4500)
+}
+
 const handleToggleFlag = e => {
   e.preventDefault()
 
@@ -61,6 +93,8 @@ const endGame = final => {
     time += 10
   })
 
+  if (final === string_values.WON)
+    initFinishAnimation()
 }
 
 const openArea = () => {
@@ -89,6 +123,7 @@ const openArea = () => {
         area_queue.push(position)
 
       document.querySelector(`button.box[key="${key}"]`).classList.remove('hidden')
+      history.push(key)
     }
   })
 
@@ -104,12 +139,14 @@ const handleBox = e => {
     return
   
   if (virtual_board[key] === -1) {
-    endGame('bomb')
+    endGame(string_values.LOSE)
     return alert('you lose')
   }
 
   e.target.classList.remove('hidden')
   e.target.removeEventListener('click', handleBox)
+
+  history.push(key)
 
   if (virtual_board[key] === 0) {
     area_queue.push([y, x])
@@ -117,7 +154,7 @@ const handleBox = e => {
   }
 
   if (checkWin()) {
-    endGame('success')
+    endGame(string_values.WON)
     return alert('You win')
   }
 }
@@ -141,12 +178,15 @@ const handleButtonPlay = () => {
   virtual_board = {}
   difficulty_selected = pre_difficulty_state
   flags_on_board = 0
-
+  
   game_time.minutes = 0
   game_time.seconds = 0
-
+  
   initTimer()
   text_flags.innerText = `${game_prperties[difficulty_selected].mines} flags`
+
+  history = []
+  clearInterval(finish_animation_timer)
   
   for (let i = 0; i < rows * cols; i++) {
     const box = document.createElement('button')
@@ -217,6 +257,8 @@ const handleButtonSlrOptions = e => {
 
 const string_values = {
   VISIBILITY_STATUS: 'visible',
+  WON: 'success',
+  LOSE: 'bomb',
   DIFFICULTY: {
     EASY: 'easy',
     NORMAL: 'normal',
@@ -282,6 +324,8 @@ let game_time = {
 }
 let timer = undefined
 let flags_on_board = 0
+let history = []
+let finish_animation_timer = undefined
 
 button_slr_options_visibility.addEventListener('click', handleButtonSlrOptionsVisibility)
 button_play.addEventListener('click', handleButtonPlay)
