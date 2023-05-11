@@ -1,4 +1,13 @@
+const handleToggleFlag = e => {
+  e.preventDefault()
+
+  e.target.classList.toggle('flag')
+  flags_on_board += e.target.classList.contains('flag') ? 1 : -1
+
+  text_flags.innerText = `${game_prperties[difficulty_selected].mines - flags_on_board} flags`
+}
 const initTimer = () => {
+  clearInterval(timer)
   text_time.innerText = `0${game_time.minutes}:0${game_time.seconds}`
   
   timer = setInterval(() => {
@@ -31,7 +40,15 @@ const checkWin = () => {
 const endGame = final => {
   let time = 0
 
-  document.querySelectorAll('button.box').forEach(box => box.removeEventListener('click', handleBox))
+  stopTimer()
+  text_flags.innerText = '0 flags'
+
+  ;[...document.querySelectorAll('button.box.flag')].forEach(box => box.classList.remove('flag'))
+
+  document.querySelectorAll('button.box').forEach(box => {
+    box.removeEventListener('click', handleBox)
+    box.removeEventListener('contextmenu', handleToggleFlag)
+  })
 
   Object.entries(virtual_board)
   .filter(([, value]) => value === -1)
@@ -43,6 +60,7 @@ const endGame = final => {
 
     time += 10
   })
+
 }
 
 const openArea = () => {
@@ -63,9 +81,10 @@ const openArea = () => {
       return
     
     const isHidden = document.querySelector(`button.box[key="${key}"]`).classList.contains('hidden')
+    const isAFlag = document.querySelector(`button.box[key="${key}"]`).classList.contains('flag')
     const position = key.split('|').map(coordinate => Number(coordinate))
 
-    if (isHidden) {
+    if (isHidden && !isAFlag) {
       if (virtual_board[key] === 0)
         area_queue.push(position)
 
@@ -80,9 +99,11 @@ const openArea = () => {
 const handleBox = e => {
   const key = e.target.getAttribute('key')
   const [y, x] = key.split('|').map(coordinate => Number(coordinate))
+
+  if (e.target.classList.contains('flag'))
+    return
   
   if (virtual_board[key] === -1) {
-    stopTimer()
     endGame('bomb')
     return alert('you lose')
   }
@@ -96,7 +117,6 @@ const handleBox = e => {
   }
 
   if (checkWin()) {
-    stopTimer()
     endGame('success')
     return alert('You win')
   }
@@ -120,11 +140,13 @@ const handleButtonPlay = () => {
 
   virtual_board = {}
   difficulty_selected = pre_difficulty_state
+  flags_on_board = 0
 
   game_time.minutes = 0
   game_time.seconds = 0
 
   initTimer()
+  text_flags.innerText = `${game_prperties[difficulty_selected].mines} flags`
   
   for (let i = 0; i < rows * cols; i++) {
     const box = document.createElement('button')
@@ -138,6 +160,7 @@ const handleButtonPlay = () => {
 
     box.setAttribute('key', `${y}|${x}`)
     box.addEventListener('click', handleBox)
+    box.addEventListener('contextmenu', handleToggleFlag)
 
     board.appendChild(box)
     
@@ -244,6 +267,7 @@ const selector = document.querySelector('div.selector')
 const slr_options = document.querySelector('ul.slr-options')
 const board = document.querySelector('div#board')
 const text_time = document.querySelector('span#time')
+const text_flags = document.querySelector('span#flags')
 const text_difficulty_selected = document.querySelector('span#difficulty-selected')
 const button_slr_options_visibility = document.querySelector('button.slr-options-visibility')
 const button_play = document.querySelector('button#play')
@@ -257,6 +281,7 @@ let game_time = {
   seconds: 0
 }
 let timer = undefined
+let flags_on_board = 0
 
 button_slr_options_visibility.addEventListener('click', handleButtonSlrOptionsVisibility)
 button_play.addEventListener('click', handleButtonPlay)

@@ -34,6 +34,7 @@ div#board button.box.hidden::after {
 }
 div#board button.box.bomb::after,
 div#board button.box.success::after,
+div#board button.box.hidden.flag::after,
 div#board button.box.hidden:hover::after {
   background: var(--clr-light-contrast);
 }
@@ -57,7 +58,8 @@ div#board button.box.hidden.bomb::before {
   background-image: url('/assets/icons/bomb.svg');
   transform: scale(1);
 }
-div#board button.box.hidden.success::before {
+div#board button.box.hidden.success::before,
+div#board button.box.hidden.flag::before {
   background-image: url('/assets/icons/pennant-filled.svg');
   transform: scale(1);
 }
@@ -72,6 +74,7 @@ div#board button.box.hidden.success::before {
   }
   div#board button.box.bomb::after,
   div#board button.box.success::after,
+  div#board button.box.hidden.flag::after,
   div#board button.box.hidden:hover::after {
     background: color-mix(in srgb, var(--clr-dark-main), var(--clr-dark-background));
   }

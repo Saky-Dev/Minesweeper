@@ -11,9 +11,7 @@ h1, h2, span, li, button {
 }
 span#time {
   font-family: 'Nova Mono', monospace;
-  font-size: var(--fns-text);
   font-weight: 600;
-  color: var(--clr-light-contrast);
 }
 
 body {
@@ -30,8 +28,5 @@ body {
 @media (prefers-color-scheme: dark) {
   body {
     background-color: var(--clr-dark-background);
-  }
-  span#time {
-    color: var(--clr-dark-contrast);
   }
 }

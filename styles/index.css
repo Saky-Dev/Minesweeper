@@ -45,11 +45,22 @@ main section.actions div.left button#play:is(:hover, :focus) {
   outline: none;
   background: var(--clr-light-contrast);
 }
+main section.actions div.right {
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+}
+main section.actions div.right span {
+  font-size: var(--fns-text);
+  font-weight: 400;
+  color: var(--clr-light-contrast);
+}
 
 main section.game {
   width: fit-content;
   height: fit-content;
-  border: 2px solid #000;
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
@@ -71,6 +82,9 @@ div.selector button.slr-options-visibility img {
   }
   main section.actions div.left button#play:is(:hover, :focus) {
     background: color-mix(in srgb, var(--clr-dark-main), var(--clr-dark-background));
+  }
+  main section.actions div.right span {
+    color: var(--clr-dark-contrast);
   }
   footer ul li a img,
   div.selector button.slr-options-visibility img {
