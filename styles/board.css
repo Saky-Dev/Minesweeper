@@ -55,12 +55,12 @@ div#board button.box::before {
   transition-delay: inherit;
 }
 div#board button.box.hidden.bomb::before {
-  background-image: url('/assets/icons/bomb.svg');
+  background-image: url('../assets/icons/bomb.svg');
   transform: scale(1);
 }
 div#board button.box.hidden.success::before,
 div#board button.box.hidden.flag::before {
-  background-image: url('/assets/icons/pennant-filled.svg');
+  background-image: url('../assets/icons/pennant-filled.svg');
   transform: scale(1);
 }
 

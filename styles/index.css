@@ -1,9 +1,9 @@
-@import url('/styles/general.css');
-@import url('/styles/variables.css');
-@import url('/styles/header.css');
-@import url('/styles/footer.css');
-@import url('/styles/selector.css');
-@import url('/styles/board.css');
+@import url('general.css');
+@import url('variables.css');
+@import url('header.css');
+@import url('footer.css');
+@import url('selector.css');
+@import url('board.css');
 
 main {
   width: 100%;
